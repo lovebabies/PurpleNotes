@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import android.widget.Toast
 import java.util.*
 
 const val DB_NAME = "db_note"
@@ -14,7 +15,7 @@ val TAG = NoteSqliteHelper::class.simpleName
 class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,null, DB_VERSION) {
 
     private val TABLE_NOTE = "table_note"
-    private val COLUMN_ID = "id"
+    private val COLUMN_ID = "id"    
     private val COLUMN_TITLE = "title"
     private val COLUMN_CONTENT = "content"
     private val COLUMN_CREATED_TIME = "created_time"
@@ -28,8 +29,8 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
         val CREATE_NOTE_TABLE_STATEMENT = "CREATE TABLE table_note (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "title TEXT, content TEXT, " +
-                "created_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP," +
-                "alarm_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
+                "created_time TIMESTAMP," +
+                "alarm_time TIMESTAMP)"
 
         //create notes table
         db?.execSQL(CREATE_NOTE_TABLE_STATEMENT)
@@ -60,6 +61,7 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
 
         //insert
         db.insert(TABLE_NOTE, null, values)
+        Toast.makeText(context, "Add success", Toast.LENGTH_LONG).show()
 
         //close
         db.close()
@@ -87,11 +89,12 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
 
         //build note object
         var note = Note()
-        note.id = cursor.getString(0).toInt()
         note.title = cursor.getString(1)
         note.content = cursor.getString(2)
         note.createdTime = cursor.getString(3).toLong()
         note.alarmTime = cursor.getString(4).toLong()
+
+        Toast.makeText(context, "Note is $note", Toast.LENGTH_LONG).show()
 
         return note
     }
@@ -105,7 +108,7 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
         var cursor = db.query(
             TABLE_NOTE,
             COLUMNS,
-            COLUMN_TITLE + "like %?%",
+            COLUMN_TITLE + " like %?%",
             arrayOf(title),
             null, null, null, null
         )
@@ -115,7 +118,7 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
         var note: Note? = null
         if (cursor.moveToFirst()) {
             do {
-                note = Note(cursor.getInt(0),
+                note = Note(
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getLong(3),
@@ -132,7 +135,7 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
     }
 
     //Delete single note
-    fun deleteNote(note: Note) {
+    fun deleteNote(id: Int) {
 
         //get reference
         var db = writableDatabase
@@ -141,20 +144,60 @@ class NoteSqliteHelper(val context: Context): SQLiteOpenHelper(context, DB_NAME,
         //DELETE table_note WHERE ID = note.id
         db.delete(TABLE_NOTE,
             COLUMN_ID + " = ?",
-            arrayOf(note.id.toString())
+            arrayOf(id.toString())
             )
 
         //close
         db.close()
 
-        //Log
-        Log.d(TAG, "delete note $note")
-
     }
 
     //update single note
-    fun updateNote(note: Note) {
+    fun updateNote(note: Note, id: Int): Int {
 
+        //get reference
+        var db = writableDatabase
+
+        //create ContentValues
+        var values = ContentValues()
+        values.put("title", note.title)
+        values.put("content", note.content)
+        values.put("createdTime", note.createdTime)
+        values.put("alarmTime", note.alarmTime)
+
+        //updating row
+        var i = db.update(TABLE_NOTE, values, COLUMN_ID + " = ?", arrayOf(id.toString()))
+
+        //close
+        db.close()
+
+        //Log
+        Log.d(TAG, "updateNote $note")
+
+        return i
+    }
+
+    fun getAllNote(): List<Note> {
+        var notes = ArrayList<Note>()
+
+        // build the query
+        var query = "SELECT * FROM $TABLE_NOTE"
+
+        //get reference
+        var db = writableDatabase
+        var cursor = db.rawQuery(query, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                var note = Note()
+                note.title = cursor.getString(1)
+                note.content = cursor.getString(2)
+
+                notes.add(note)
+            } while (cursor.moveToNext())
+        }
+
+        return notes
     }
 
 }
