@@ -1,11 +1,11 @@
 package com.example.purplenotes
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_delete_demo.*
 
 class FragmentDeleteDemo: Fragment() {
@@ -15,10 +15,10 @@ class FragmentDeleteDemo: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        var helper = context?.let { NoteSqliteHelper(it) }
+        val db = context?.let { Database.buildInstance(it) } as NoteDatabase
         btnDelete.setOnClickListener {
-            helper?.deleteNote(edtIdToDelete.text.toString().toInt())
-            Log.d(TAG, "Total: ${helper?.getAllNote()}")
+            db.noteDao().deleteNote(edtIdToDelete.text.toString().toInt())
+            Log.d(TAG, "Data after insert ${db?.noteDao()?.getAllNotes()}")
         }
     }
     companion object {

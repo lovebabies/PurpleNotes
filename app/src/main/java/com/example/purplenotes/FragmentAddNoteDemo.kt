@@ -1,12 +1,12 @@
 package com.example.purplenotes
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_add_note_demo.*
 
 class FragmentAddNoteDemo: Fragment() {
@@ -17,11 +17,11 @@ class FragmentAddNoteDemo: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        var helper = context?.let { NoteSqliteHelper(it) }
+        val db = context?.let { Database.buildInstance(it) } as NoteDatabase
         btnAdd.setOnClickListener {
             if (!edtTitle.text.isNullOrEmpty() && !edtContent.text.isNullOrEmpty()) {
-                helper?.addNote(Note(edtTitle.text.toString(), edtContent.text.toString()))
-                Log.d(TAG, "total data is ${helper?.getAllNote()}")
+                db?.noteDao()?.insertNote(Note(edtTitle.text.toString(), edtContent.text.toString()))
+                Log.d(TAG, "Data after insert ${db?.noteDao()?.getAllNotes()}")
             }
         }
     }
