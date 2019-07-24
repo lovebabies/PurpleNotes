@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.purplenotes.data.Database
+import com.example.purplenotes.data.NoteDatabase
 import kotlinx.android.synthetic.main.fragment_get_note_by_id_demo.*
 
 class FragmentGetNoteByIdDemo: Fragment() {

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.room.Room
+import com.example.purplenotes.data.Database
+import com.example.purplenotes.data.Note
+import com.example.purplenotes.data.NoteDatabase
 import kotlinx.android.synthetic.main.fragment_add_note_demo.*
 
 class FragmentAddNoteDemo: Fragment() {
@@ -20,7 +22,12 @@ class FragmentAddNoteDemo: Fragment() {
         val db = context?.let { Database.buildInstance(it) } as NoteDatabase
         btnAdd.setOnClickListener {
             if (!edtTitle.text.isNullOrEmpty() && !edtContent.text.isNullOrEmpty()) {
-                db?.noteDao()?.insertNote(Note(edtTitle.text.toString(), edtContent.text.toString()))
+                db?.noteDao()?.insertNote(
+                    Note(
+                        edtTitle.text.toString(),
+                        edtContent.text.toString()
+                    )
+                )
                 Log.d(TAG, "Data after insert ${db?.noteDao()?.getAllNotes()}")
             }
         }

@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.example.purplenotes.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,22 +39,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 pushScreen(FragmentUpdateDemo.newInstance(), FragmentUpdateDemo::class.simpleName)
             }
         }
-    }
-
-//    fun pushScreen(fragment: Fragment, tag: String?) {
-//        supportFragmentManager.transact {
-//            replace(R.id.mainContainer, fragment, tag)
-//                .addToBackStack(null)
-//        }
-//    }
-//
-//    inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
-//        beginTransaction().apply {
-//            action
-//        }.commit()
-//    }
-
-    fun pushScreen(fragment: Fragment, tag: String?) {
-        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, fragment, tag).addToBackStack(null).commit()
     }
 }

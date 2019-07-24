@@ -1,4 +1,4 @@
-package com.example.purplenotes
+package com.example.purplenotes.data
 
 import android.content.Context
 import androidx.room.Room
