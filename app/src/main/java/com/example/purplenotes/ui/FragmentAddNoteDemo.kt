@@ -1,17 +1,11 @@
 package com.example.purplenotes.ui
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.purplenotes.R
 import com.example.purplenotes.base.BaseActivity
 import com.example.purplenotes.base.BaseFragment
-import com.example.purplenotes.data.Database
-import com.example.purplenotes.data.Note
-import com.example.purplenotes.data.NoteDatabase
+import com.example.purplenotes.data.database.Note
+import com.example.purplenotes.data.database.NoteDatabase
 import kotlinx.android.synthetic.main.fragment_add_note_demo.*
 import javax.inject.Inject
 
