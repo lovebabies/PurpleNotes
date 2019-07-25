@@ -1,25 +1,28 @@
-package com.example.purplenotes
+package com.example.purplenotes.ui
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import com.example.purplenotes.*
 import com.example.purplenotes.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), View.OnClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun initData() {
+    }
 
+    override fun initView() {
         btnAdd.setOnClickListener(this)
         btnGetNoteByTitle.setOnClickListener(this)
         btnDeleteNote.setOnClickListener(this)
         btnUpdate.setOnClickListener(this)
     }
+
+    override fun injectInjector() {
+        getInjector()?.inject(this)
+    }
+
+    override fun getViewRes(): Int = R.layout.activity_main
 
     override fun onClick(v: View?) {
         when(v?.id) {

@@ -9,10 +9,16 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModules(val context: Context) {
+class ApplicationModules(val mContext: Context) {
     @Provides
     @Singleton
-    fun providesAppDatabase(context: Context): RoomDatabase {
+    fun providesAppDatabase(context: Context): NoteDatabase {
         return Room.databaseBuilder(context.applicationContext, NoteDatabase::class.java, "database_note").allowMainThreadQueries().build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideContex(): Context {
+        return mContext
     }
 }

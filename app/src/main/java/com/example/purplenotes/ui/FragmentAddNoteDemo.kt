@@ -1,4 +1,4 @@
-package com.example.purplenotes
+package com.example.purplenotes.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,20 +6,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.purplenotes.R
+import com.example.purplenotes.base.BaseActivity
+import com.example.purplenotes.base.BaseFragment
 import com.example.purplenotes.data.Database
 import com.example.purplenotes.data.Note
 import com.example.purplenotes.data.NoteDatabase
 import kotlinx.android.synthetic.main.fragment_add_note_demo.*
+import javax.inject.Inject
 
-class FragmentAddNoteDemo: Fragment() {
+class FragmentAddNoteDemo: BaseFragment() {
     private val TAG = FragmentAddNoteDemo::class.simpleName
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-       return inflater.inflate(R.layout.fragment_add_note_demo, container, false)
+    @Inject
+    lateinit var db: NoteDatabase
+
+    override fun getViewRes(): Int = R.layout.fragment_add_note_demo
+
+    override fun initData() {
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val db = context?.let { Database.buildInstance(it) } as NoteDatabase
+    override fun injectInjector() {
+        (activity as BaseActivity).getInjector()?.inject(this)
+    }
+
+    override fun initView() {
         btnAdd.setOnClickListener {
             if (!edtTitle.text.isNullOrEmpty() && !edtContent.text.isNullOrEmpty()) {
                 db?.noteDao()?.insertNote(
