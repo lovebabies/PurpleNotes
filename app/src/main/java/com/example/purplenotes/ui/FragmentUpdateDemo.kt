@@ -32,6 +32,10 @@ class FragmentUpdateDemo: BaseFragment() {
 
     override fun getViewRes(): Int = R.layout.fragment_update_demo
 
+    override fun getViewModel() {
+
+    }
+
     companion object {
         fun newInstance() = FragmentUpdateDemo()
     }

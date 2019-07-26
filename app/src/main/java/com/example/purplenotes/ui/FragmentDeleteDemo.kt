@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.fragment_delete_demo.*
 import javax.inject.Inject
 
 class FragmentDeleteDemo: BaseFragment() {
+
     private val TAG = FragmentDeleteDemo::class.simpleName
 
     @Inject
@@ -17,7 +18,7 @@ class FragmentDeleteDemo: BaseFragment() {
     override fun initView() {
         btnDelete.setOnClickListener {
             db.noteDao().deleteNote(edtIdToDelete.text.toString().toInt())
-            Log.d(TAG, "Data after insert ${db?.noteDao()?.getAllNotes()}")
+            Log.d(TAG, "Data after insert ${db?.noteDao()?.getAllNotesTest()}")
         }
     }
 
@@ -30,6 +31,10 @@ class FragmentDeleteDemo: BaseFragment() {
     }
 
     override fun getViewRes(): Int = R.layout.fragment_delete_demo
+
+    override fun getViewModel() {
+
+    }
 
     companion object {
         fun newInstance() = FragmentDeleteDemo()

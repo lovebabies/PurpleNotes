@@ -32,6 +32,10 @@ class FragmentGetNoteByIdDemo: BaseFragment() {
 
     override fun getViewRes(): Int = R.layout.fragment_get_note_by_id_demo
 
+    override fun getViewModel() {
+
+    }
+
     companion object {
         fun newInstance() = FragmentGetNoteByIdDemo()
     }

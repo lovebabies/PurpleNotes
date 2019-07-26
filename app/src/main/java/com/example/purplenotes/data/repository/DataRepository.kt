@@ -18,4 +18,6 @@ class DataRepository @Inject constructor(val db: NoteDatabase){
     fun getNoteByTitle(title: String): Observable<Note> = db.noteDao().getNoteByTitle(title)
 
     fun getAllNote(): Observable<List<Note>> = db.noteDao().getAllNotes()
+
+    fun getAllNoteTest(): List<Note> = db.noteDao().getAllNotesTest()
 }
