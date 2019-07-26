@@ -1,4 +1,4 @@
-package com.example.purplenotes.data
+package com.example.purplenotes.data.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
