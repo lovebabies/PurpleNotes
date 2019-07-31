@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PurpleNotes</string>
+    <string name="all_notes">All Notes</string>
+    <string name="search">Search</string>
+    <string name="title">Title</string>
+    <string name="create_note">Create Note</string>
+    <string name="save">Save</string>
+    <string name="content">Content</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="add_images">Add Some Images</string>
 </resources>

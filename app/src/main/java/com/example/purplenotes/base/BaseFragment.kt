@@ -1,18 +1,10 @@
 package com.example.purplenotes.base
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
-import com.example.purplenotes.ViewModelFactory
-import com.example.purplenotes.ui.AddNoteViewModel
-import javax.inject.Inject
 
 abstract class BaseFragment: Fragment() {
 
