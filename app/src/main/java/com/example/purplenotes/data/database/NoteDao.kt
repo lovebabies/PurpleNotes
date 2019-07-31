@@ -21,6 +21,7 @@ interface NoteDao {
 
     @Insert
     fun insertNote(vararg note: Note): Completable
+
     @Query("DELETE FROM note WHERE id = :id")
     fun deleteNote(id: Int): Completable
 
