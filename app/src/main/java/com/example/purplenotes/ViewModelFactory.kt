@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.purplenotes.data.repository.DataRepository
 import com.example.purplenotes.ui.createnotes.CreateNoteViewModel
 import com.example.purplenotes.ui.home.HomeViewModel
+import com.example.purplenotes.ui.updatenotes.UpdateNoteViewModel
 import com.example.purplenotes.util.SchedulersProvider
 import javax.inject.Inject
 
@@ -18,6 +19,10 @@ class ViewModelFactory @Inject constructor(val mDataRepository: DataRepository, 
 
                     isAssignableFrom(HomeViewModel::class.java) -> {
                         HomeViewModel(mDataRepository, schedulersProvider) as T
+                    }
+
+                    isAssignableFrom(UpdateNoteViewModel::class.java) -> {
+                        UpdateNoteViewModel(mDataRepository, schedulersProvider) as T
                     }
 
 

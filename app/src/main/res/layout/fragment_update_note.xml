@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorBase"
+            android:id="@+id/layoutActionBar"
+            >
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_marginStart="8dp"
+                android:id="@+id/imgArrowBack"
+                />
+
+        <TextView
+                style="@style/TitleActionBarTextStyle"
+                android:text="@string/update_note"
+                android:layout_toEndOf="@id/imgArrowBack"
+                android:layout_marginStart="8dp"
+                android:layout_centerVertical="true"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:id="@+id/tvSave"
+                android:textSize="@dimen/text_size_larger"
+                android:textColor="@color/colorWhite"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                />
+    </RelativeLayout>
+
+    <TextView
+            style="@style/HeaderCreateNoteStyle"
+            android:text="@string/title"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            />
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:elevation="10dp"
+            android:background="@drawable/bg_edt_title_note"
+            android:id="@+id/edtTitle"
+            />
+
+    <TextView
+            style="@style/HeaderCreateNoteStyle"
+            android:text="@string/content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_edt_title_note"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="36dp"
+            >
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:layout_above="@id/layoutCreateNoteOptions"
+                android:background="@android:color/transparent"
+                android:id="@+id/edtContent"
+                />
+        <include
+                layout="@layout/snippet_create_note_options"
+                android:id="@+id/layoutCreateNoteOptions"
+                />
+    </RelativeLayout>
+
+
+</LinearLayout>

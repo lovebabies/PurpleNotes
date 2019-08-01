@@ -1,6 +1,8 @@
 package com.example.purplenotes.ui.home
 
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,16 +13,20 @@ import com.example.purplenotes.base.BaseFragment
 import com.example.purplenotes.data.database.Note
 import com.example.purplenotes.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
  * Author: Jayden Nguyen
  * Created date: 7/31/2019
  */
-class HomeFragment: BaseFragment() {
+class HomeFragment: BaseFragment(), NoteAdapter.OnClickEditListener {
+
     private val mNoteList: ArrayList<Note> = ArrayList<Note>()
     lateinit var mAdapter: NoteAdapter
     private var viewModel: HomeViewModel? = null
+    private var mCurrentEditTitle = ""
+    private var mCurrentEditContent = ""
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -35,11 +41,16 @@ class HomeFragment: BaseFragment() {
         setupRecyclerView()
         checkForDisplayNoteList()
         fab.setOnClickListener(onClickListener)
+        registerForContextMenu(rcvNotes)
 
         viewModel?.noteList?.observe(this@HomeFragment, Observer {
             mAdapter.addNotes(it as ArrayList<Note>)
             mAdapter.notifyDataSetChanged()
             checkForDisplayNoteList()
+        })
+
+        viewModel?.deletePosition?.observe(this@HomeFragment, Observer {
+            mAdapter.deleteNote(it)
         })
     }
 
@@ -56,11 +67,17 @@ class HomeFragment: BaseFragment() {
         viewModel = ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
     }
 
+    override fun onClickEdit(title: String, content: String) {
+        mCurrentEditTitle = title
+        mCurrentEditContent = content
+    }
+
     private fun setupRecyclerView() {
         rcvNotes.apply {
             layoutManager = LinearLayoutManager(context)
             mAdapter = NoteAdapter()
             mAdapter.setNoteList(mNoteList)
+            mAdapter.setOnClickEditListener(this@HomeFragment)
             adapter = mAdapter
         }
     }
@@ -81,6 +98,29 @@ class HomeFragment: BaseFragment() {
                 (activity as MainActivity).pushCreateNoteScreen()
             }
         }
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        var position = -1
+        try {
+            position = mAdapter.getPosition()
+        } catch (e: Exception) {
+
+        }
+
+        when(item?.itemId) {
+            0 -> {
+                Toast.makeText(context, "EDIT pos: $position", Toast.LENGTH_LONG).show()
+                (activity as MainActivity).pushUpdateNoteScreen(position, mCurrentEditTitle, mCurrentEditContent)
+            }
+
+            1 -> {
+                Toast.makeText(context, "DELETE pos: $position", Toast.LENGTH_LONG).show()
+                viewModel?.deleteNote(position)
+            }
+        }
+
+        return super.onContextItemSelected(item)
     }
 
 }

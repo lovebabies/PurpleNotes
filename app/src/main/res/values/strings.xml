@@ -8,4 +8,6 @@
     <string name="content">Content</string>
     <string name="set_alarm">Set Alarm</string>
     <string name="add_images">Add Some Images</string>
+    <string name="update_note">Update Note</string>
+    <string name="update">Update</string>
 </resources>

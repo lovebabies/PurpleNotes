@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/ic_alarm"
-            android:id="@+id/imgAlarm"
+            android:src="@drawable/ic_options"
+            android:id="@+id/imgOptions"
             />
 
     <TextView

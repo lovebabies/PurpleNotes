@@ -7,6 +7,7 @@ import com.example.purplenotes.base.BaseActivity
 import com.example.purplenotes.data.database.Note
 import com.example.purplenotes.ui.createnotes.CreateNoteFragment
 import com.example.purplenotes.ui.home.HomeFragment
+import com.example.purplenotes.ui.updatenotes.UpdateNoteFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -30,5 +31,9 @@ class MainActivity : BaseActivity() {
 
     fun pushCreateNoteScreen() {
         pushScreen(CreateNoteFragment.newInstance(), CreateNoteFragment::class.simpleName)
+    }
+
+    fun pushUpdateNoteScreen(id: Int, title: String, content: String) {
+        pushScreen(UpdateNoteFragment.newInstance(id, title, content), UpdateNoteFragment::class.simpleName)
     }
 }
