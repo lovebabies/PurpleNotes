@@ -26,7 +26,7 @@ class UpdateNoteViewModel @Inject constructor(val mDataRepository: DataRepositor
                 override fun onComplete() {
                     updateStatus.value = true
                     getAllNotes()
-                }
+            }
 
                 override fun onError(e: Throwable) {
                     updateStatus.value = false

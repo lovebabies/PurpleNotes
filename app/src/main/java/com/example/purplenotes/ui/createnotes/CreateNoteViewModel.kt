@@ -12,6 +12,7 @@ import javax.inject.Inject
 class CreateNoteViewModel @Inject constructor(val mDataRepository: DataRepository, val schedulersProvider: SchedulersProvider): BaseViewModel() {
     var mStatus: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val TAG = CreateNoteViewModel::class.simpleName
+    val listPhotoPath = MutableLiveData<List<String>>()
 
     @SuppressLint("CheckResult")
     fun addNote(title: String, content: String) {
@@ -25,6 +26,17 @@ class CreateNoteViewModel @Inject constructor(val mDataRepository: DataRepositor
                 override fun onComplete() {
                     mStatus.value = true
                 }
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getImageFromGallery() {
+        mDataRepository.getImageFromGallery().subscribeOn(schedulersProvider.io())
+            .observeOn(schedulersProvider.ui())
+            .subscribe({
+                listPhotoPath.value = it.photoPaths
+            }, {
+                Log.e(TAG, "onError: ${it.message}")
             })
     }
 }

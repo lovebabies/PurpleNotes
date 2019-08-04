@@ -87,14 +87,25 @@
                 android:padding="8dp"
                 android:gravity="top|left"
                 tools:text="huy"
-                android:layout_above="@id/layoutCreateNoteOptions"
+                android:layout_above="@id/layoutOptions"
                 android:background="@android:color/transparent"
                 android:id="@+id/edtContent"
                 />
-        <include
-            layout="@layout/snippet_create_note_options"
-            android:id="@+id/layoutCreateNoteOptions"
-            />
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/layoutOptions"
+                >
+            <include
+                    layout="@layout/snippet_create_note_options"
+                    android:id="@+id/layoutCreateNoteOptions"
+                    />
+            <include
+                    layout="@layout/snippet_pick_image"
+                    />
+
+        </FrameLayout>
     </RelativeLayout>
 
 
